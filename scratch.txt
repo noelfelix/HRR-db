@@ -1,0 +1,102 @@
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'messages'
+--
+-- ---
+
+DROP TABLE IF EXISTS `messages`;
+
+CREATE TABLE `messages` (
+  `content` MEDIUMTEXT NULL AUTO_INCREMENT DEFAULT NULL,
+  `userID` INTEGER(10) NULL DEFAULT Anonymous,
+  `messageID` INTEGER(10) NOT NULL DEFAULT NULL,
+  `roomID` INTEGER(10) NULL DEFAULT Lobby,
+  PRIMARY KEY (`messageID`)
+);
+
+-- ---
+-- Table 'users'
+--
+-- ---
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `userID` INTEGER(20) NOT NULL AUTO_INCREMENT DEFAULT NULL,
+  `name` VARCHAR(20) NULL DEFAULT 'Anonymous',
+  PRIMARY KEY (`userID`)
+);
+
+-- ---
+-- Table 'rooms'
+--
+-- ---
+
+DROP TABLE IF EXISTS `rooms`;
+
+CREATE TABLE `rooms` (
+  `roomID` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NULL,
+  `name` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`roomID`)
+);
+
+-- ---
+-- Foreign Keys
+-- ---
+
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `rooms` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `messages` (`content`,`userID`,`messageID`,`roomID`) VALUES
+-- ('','','','');
+-- INSERT INTO `users` (`userID`,`name`) VALUES
+-- ('','');
+-- INSERT INTO `rooms` (`roomID`,`name`) VALUES
+-- ('','');
+
+//open connection to databse
+  // use connection send string:
+  // SELECT * FROM users
+    // blah blah SQL
+
+connection.query('<SQL> ?', varname, function(err, result (rows, fields)){
+  //if err log/return
+  //log result
+});
+
+connection.escape() or ? placeholder
+
+-- CREATE PROCEDURE insert_select (IN user VARCHAR(20), IN room VARCHAR(20), OUT userid INTEGER(10), OUT roomid INTEGER(10))
+-- BEGIN
+--   IF NOT EXISTS (SELECT user_id FROM users WHERE username = user) THEN
+--     INSERT INTO users (username) VALUES (user);
+--   END IF;
+--   SET userid SELECT user_id FROM users WHERE username = user;
+
+--   IF NOT EXISTS (SELECT room_id FROM rooms WHERE roomname = room) THEN
+--     INSERT INTO rooms (roomname) VALUES (room);
+--   END IF;
+--   SET roomid SELECT room_id FROM rooms WHERE roomname = room;
+-- END;
+
+'select messages.content, users.username, rooms.roomname' +
+' from messages' +
+' inner join users on messages.user_id = users.user_id' +
+' inner join rooms on messages.room_id = rooms.room_id' +
+' where rooms.room_id = ?'
