@@ -9,7 +9,7 @@ sequelize = new Sequelize("chat", "root", "");
 
 /* first define the data structure by giving property names and datatypes
  * See http://sequelizejs.com for other datatypes you can use besides STRING. */
-exports.User = sequelize.define('user', {
+exports.User = sequelize.define('users', {
   username: Sequelize.STRING
 });
 
@@ -22,6 +22,10 @@ exports.Message = sequelize.define('message', {
   content: Sequelize.STRING,
   room_id: Sequelize.INTEGER
 });
+
+exports.User.sync();
+exports.Room.sync();
+exports.Message.sync();
 
 ///////////
 
